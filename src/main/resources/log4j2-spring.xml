@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--全局异步日志 -Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector-->
+<configuration status="info" monitorInterval="30">
+    <properties>
+        <property name="log.path">./logs</property>
+        <property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} [%-5level] [%X{traceId}] [%t] [%C{1.}] %msg%n</property>
+    </properties>
+    <!--先定义所有的appender-->
+    <appenders>
+        <!--这个输出控制台的配置-->
+        <console name="console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout>
+                <!-- 控制台彩色日志格式 -->
+                <Pattern>%style{%d{yyyy-MM-dd HH:mm:ss,SSS}}{bright,white} %highlight{%-5level} %style{[%X{traceId}]}{cyan} [%style{%t}{bright,blue}] [%style{%C{1.}}{bright,yellow}:%L] %msg%n%style{%throwable}{red}</Pattern>
+                <!-- 控制台统一日志格式 -->
+                <!--                <Pattern>${pattern}</Pattern>-->
+            </PatternLayout>
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </console>
+        <RollingFile name="infoLog" immediateFlush="true" fileName="${sys:log.path}/info.log"
+                     filePattern="${sys:log.path}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.zip">
+            <Filters>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>${pattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="warnLog" immediateFlush="true" fileName="${sys:log.path}/warn.log"
+                     filePattern="${sys:log.path}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.zip">
+            <Filters>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>${pattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="errorLog" immediateFlush="true" fileName="${sys:log.path}/error.log"
+                     filePattern="${sys:log.path}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.zip">
+            <Filters>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>${pattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+
+    </appenders>
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+        <!--过滤掉无用的debug信息-->
+        <logger name="org.springframework" level="INFO">
+        </logger>
+        <!--指定了logger就使用logger，没有指定就使用root-->
+        <logger name="com.agefades.single" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="infoLog"/>
+            <appender-ref ref="warnLog"/>
+            <appender-ref ref="errorLog"/>
+        </logger>
+        <logger name="MonitorLog" level="debug" additivity="false">
+            <appender-ref ref="monitorLog"/>
+        </logger>
+        <root level="all">
+            <appender-ref ref="console"/>
+            <appender-ref ref="infoLog"/>
+            <appender-ref ref="warnLog"/>
+            <appender-ref ref="errorLog"/>
+        </root>
+    </loggers>
+
+</configuration>
