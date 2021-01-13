@@ -102,8 +102,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 SysUserDTO sysUserDTO = JSONUtil.toBean(sysUserInfoDtoStr.toString(), SysUserDTO.class);
 
+                boolean isOnlyLogin = false;
+                if (CollUtil.isNotEmpty(IgnoreAuthConstant.ONLY_LOGIN)) {
+                    isOnlyLogin = IgnoreAuthConstant.ONLY_LOGIN.stream().anyMatch(e -> MATCHER.match(e, uri));
+                }
+
                 // 判断 是否仅需登录即可访问，否的话进入下层判断
-                if (CollUtil.isNotEmpty(IgnoreAuthConstant.ONLY_LOGIN) && IgnoreAuthConstant.ONLY_LOGIN.stream().anyMatch(e -> MATCHER.match(e, uri))) {
+                if (!isOnlyLogin) {
                     // 判断 是否管理员, 否则需要鉴权
                     if (ObjectUtil.notEqual(BoolEnum.Y.getCode(), sysUserDTO.getIsAdmin())) {
                         // 进行鉴权
@@ -171,6 +176,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         System.out.println(matcher.match("/user/detail/**", "/user/detail/1"));
         System.out.println(matcher.match("/user/**/do", "/user/xx/do"));
         System.out.println(matcher.match("/**/xx/do", "/user/xx/do"));
+        System.out.println(matcher.match("", "/test/fail"));
     }
 
 }

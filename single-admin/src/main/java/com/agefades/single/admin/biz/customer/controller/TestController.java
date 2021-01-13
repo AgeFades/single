@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "测试API")
 @RestController
-@RequestMapping
+@RequestMapping("/test")
 public class TestController {
 
     @SysLog(desc = "操作日志测试 - 正常")
-    @GetMapping
+    @GetMapping("ok")
     @ApiOperation(value = "测试 - 正常")
     public Result<Void> testOk() {
         return Result.success();
     }
 
     @SysLog(desc = "操作日志测试 - 异常")
-    @PostMapping
+    @PostMapping("fail")
     @ApiOperation(value = "测试 - 异常")
     public Result<Void> testError() {
         int a = 1 / 0;

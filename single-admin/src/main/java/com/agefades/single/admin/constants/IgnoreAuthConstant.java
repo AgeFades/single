@@ -20,6 +20,6 @@ public interface IgnoreAuthConstant {
     /**
      * 忽略 { 鉴权 } 请求路径集合
      */
-    List<String> ONLY_LOGIN = Arrays.asList("/test/error", "/sys/log/condition/page");
+    List<String> ONLY_LOGIN = Arrays.asList("/sys/log/condition/page");
 
 }

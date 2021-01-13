@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Jwt 工具类
@@ -52,6 +53,7 @@ public class JwtUtil {
     public static String createJwt(String id) {
         return Jwts.builder()
                 .setId(id)
+                .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, KEY)
                 .compact();
     }
