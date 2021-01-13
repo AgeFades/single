@@ -62,12 +62,11 @@ DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `id` varchar(20) NOT NULL COMMENT '主键',
   `name` varchar(50) NOT NULL COMMENT '菜单名称',
-  `pid` varchar(20) DEFAULT NULL COMMENT '父菜单ID',
+  `pid` varchar(20) NOT NULL DEFAULT '0' COMMENT '父菜单ID',
   `weight` tinyint(4) DEFAULT '0' COMMENT '显示权重',
-  `uri` varchar(200) DEFAULT '#' COMMENT '请求路径',
+  `uri` varchar(200) DEFAULT '' COMMENT '请求路径',
   `type` varchar(1) DEFAULT '' COMMENT '菜单类型（D目录 M菜单 B按钮）',
   `perms` varchar(100) DEFAULT NULL COMMENT '权限标识',
-  `method` varchar(10) NOT NULL DEFAULT '' COMMENT '资源请求类型 GET POST PUT DELETE',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
