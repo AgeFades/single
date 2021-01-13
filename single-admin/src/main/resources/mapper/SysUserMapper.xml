@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agefades.single.admin.biz.sys.mapper.SysUserMapper">
+
+    <select id="getPermission" resultType="com.agefades.single.admin.biz.sys.dto.ClientMenuDTO">
+        SELECT DISTINCT
+	        c.id,
+	        c.pid,
+	        c.name,
+	        c.type,
+	        c.uri,
+	        c.perms,
+	        c.weight
+        FROM
+        	sys_user_role a
+        	INNER JOIN sys_role_menu b ON a.role_id = b.role_id
+        	INNER JOIN sys_menu c ON b.menu_id = c.id
+        WHERE
+        	a.user_id = #{userId}
+    </select>
+
+</mapper>

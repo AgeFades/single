@@ -1,8 +1,7 @@
 package com.agefades.single.common.exception;
 
-import cn.hutool.json.JSONUtil;
 import com.agefades.single.common.base.Result;
-import com.agefades.single.common.enums.BizCodeEnum;
+import com.agefades.single.common.enums.CommonResultCodeEnum;
 import com.agefades.single.common.util.LogUtil;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.google.common.collect.Maps;
@@ -38,46 +37,44 @@ public class GlobalExceptionHandler {
             BizException e = (BizException) ex;
             return Result.error(e.getCode(), e.getMessage());
         } else if (ex instanceof BindException) {
-            log.warn("请求参数校验异常,result:{}", ((BindException) ex).getBindingResult());
             return handleValidException(((BindException) ex).getBindingResult());
         } else if (ex instanceof MethodArgumentNotValidException) {
-            log.warn("请求参数校验异常,result:{}", ((MethodArgumentNotValidException) ex).getBindingResult());
             return handleValidException(((MethodArgumentNotValidException) ex).getBindingResult());
         } else if (ex instanceof MismatchedInputException) {
             log.warn("MismatchedInputException:", ex);
-            return Result.error(BizCodeEnum.INVALID_JSON_ERROR);
+            return Result.error(CommonResultCodeEnum.INVALID_JSON_ERROR);
         } else if (ex instanceof HttpMessageNotReadableException) {
             log.warn("请求参数JSON异常: ", ex);
-            return Result.error(BizCodeEnum.INVALID_JSON_ERROR);
+            return Result.error(CommonResultCodeEnum.INVALID_JSON_ERROR);
         } else if (ex instanceof HttpMediaTypeNotSupportedException) {
             log.warn("不支持的请求格式: ", ex);
-            return Result.error(BizCodeEnum.NOT_SUPPORTED_HTTP_MEDIA_TYPE);
+            return Result.error(CommonResultCodeEnum.NOT_SUPPORTED_HTTP_MEDIA_TYPE);
         } else if (ex instanceof HttpRequestMethodNotSupportedException) {
             log.warn("请求类型不匹配异常: ", ex);
-            return Result.error(BizCodeEnum.HTTP_REQUEST_METHOD_NOT_SUPPORTED);
+            return Result.error(CommonResultCodeEnum.HTTP_REQUEST_METHOD_NOT_SUPPORTED);
         } else if (ex instanceof MaxUploadSizeExceededException) {
             log.warn("文件上传异常: ", ex);
-            return Result.error(BizCodeEnum.MAX_UPLOAD_SIZE_ERROR);
+            return Result.error(CommonResultCodeEnum.MAX_UPLOAD_SIZE_ERROR);
         } else if (ex instanceof MissingServletRequestParameterException) {
             log.warn("缺少必要的参数异常: ", ex);
             MissingServletRequestParameterException e = (MissingServletRequestParameterException) ex;
-            return Result.error(BizCodeEnum.MISSING_REQUIRE_PARAMETER, "缺少参数: " + e.getParameterName() + ",类型: " + e.getParameterType());
+            return Result.error(CommonResultCodeEnum.MISSING_REQUIRE_PARAMETER, "缺少参数: " + e.getParameterName() + ",类型: " + e.getParameterType());
         } else if (ex instanceof MissingServletRequestPartException) {
             log.warn("缺少必要MultipartFile的参数异常: ", ex);
             MissingServletRequestPartException e = (MissingServletRequestPartException) ex;
-            return Result.error(BizCodeEnum.MISSING_REQUIRE_PARAMETER, "缺少文件类型参数: " + e.getRequestPartName());
+            return Result.error(CommonResultCodeEnum.MISSING_REQUIRE_PARAMETER, "缺少文件类型参数: " + e.getRequestPartName());
         } else if (ex instanceof MethodArgumentTypeMismatchException) {
             log.warn("参数类型不匹配异常: ", ex);
             MethodArgumentTypeMismatchException e = (MethodArgumentTypeMismatchException) ex;
-            return Result.error(BizCodeEnum.METHOD_ARGUMENT_TYPE_MISMATCH, "参数: " + e.getName() + "类型不匹配,需要 " + e.getRequiredType() + " 类型");
+            return Result.error(CommonResultCodeEnum.METHOD_ARGUMENT_TYPE_MISMATCH, "参数: " + e.getName() + "类型不匹配,需要 " + e.getRequiredType() + " 类型");
         } else if (ex instanceof IllegalArgumentException) {
             log.warn("非法参数异常: ", ex);
-            return Result.error(BizCodeEnum.ILLEGAL_ARGUMENT, "非法的参数: " + ex.getMessage());
+            return Result.error(CommonResultCodeEnum.ILLEGAL_ARGUMENT, "非法的参数: " + ex.getMessage());
         }
 
         String traceId = LogUtil.getTraceId();
         log.error("系统异常！traceId:{}", traceId, ex);
-        return Result.errorWithTraceId(BizCodeEnum.SYSTEM_ERROR, traceId);
+        return Result.errorWithTraceId(CommonResultCodeEnum.SYSTEM_ERROR, traceId);
     }
 
     /**
@@ -87,7 +84,7 @@ public class GlobalExceptionHandler {
         Map<String, String> errorMap = Maps.newHashMap();
         bindingResult.getFieldErrors()
                 .forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
-        return Result.error(BizCodeEnum.VALID_ERROR, JSONUtil.toJsonStr(errorMap));
+        return Result.error(CommonResultCodeEnum.VALID_ERROR, errorMap.toString());
     }
 
 }

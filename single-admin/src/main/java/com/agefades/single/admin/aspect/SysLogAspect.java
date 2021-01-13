@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.util.ObjectUtil;
 import com.agefades.single.admin.biz.sys.service.SysLogService;
-import com.agefades.single.admin.biz.sys.util.SysThreadLocalUtil;
+import com.agefades.single.admin.util.SysThreadLocalUtil;
 import com.agefades.single.common.util.IpUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

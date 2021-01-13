@@ -2,7 +2,7 @@ package com.agefades.single.common.util;
 
 import cn.hutool.json.JSONUtil;
 import com.agefades.single.common.base.Result;
-import com.agefades.single.common.enums.BizCodeEnum;
+import com.agefades.single.common.enums.CodeEnum;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +20,9 @@ public class ResponseUtil {
     /**
      * 往 response 写出 json
      * @param response : 响应流
-     * @param codeEnum {@link BizCodeEnum}
+     * @param codeEnum {@link CodeEnum}
      */
-    public static void renderJson(HttpServletResponse response, BizCodeEnum codeEnum) {
+    public static void renderJson(HttpServletResponse response, CodeEnum codeEnum) {
         try {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "*");

@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 业务响应Code、Msg枚举
+ * 公共端业务响应Code、Msg枚举
  *
  * --- 公共异常 ---
- * C01 客户
- * C02 订单
+ * C00 公共
+ * C01 权限
  * ...
  * C99 其他
  *
@@ -29,9 +29,9 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum BizCodeEnum {
+public enum CommonResultCodeEnum implements CodeEnum {
 
-    // ------ 全局公共响应开始 ------
+    // ------ 全局公共响应开始 ------//
     SUCCESS("00000", "成功"),
 
     SYSTEM_ERROR("C0001", "系统异常,请联系管理员"),
@@ -53,6 +53,12 @@ public enum BizCodeEnum {
     ILLEGAL_ARGUMENT("C0009", "非法参数异常"),
 
     REDIS_LIMIT_ERROR("C0010", "操作过于频繁，请稍后再试"),
+
+
+    // ------ C01 权限 ------//
+    TOKEN_PARSE_ERROR("C0101", "令牌失效，请重新登录"),
+    TOKEN_NOT_FOUND_ERROR("C0102", "请登录后访问"),
+    TOKEN_NOT_EQUAL_ERROR("C0103", "该账号已在其他地方登录，如非本人登录，请修改密码"),
 
     ;
 

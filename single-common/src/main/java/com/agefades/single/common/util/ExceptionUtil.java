@@ -1,6 +1,6 @@
 package com.agefades.single.common.util;
 
-import com.agefades.single.common.enums.BizCodeEnum;
+import com.agefades.single.common.enums.CodeEnum;
 import com.agefades.single.common.exception.BizException;
 
 /**
@@ -11,11 +11,11 @@ import com.agefades.single.common.exception.BizException;
  */
 public class ExceptionUtil {
 
-    public static void throwBizException(BizCodeEnum codeEnum) {
+    public static void throwBizException(CodeEnum codeEnum) {
         throwBizException(codeEnum.getCode(), codeEnum.getMsg());
     }
 
-    public static void throwBizException(BizCodeEnum codeEnum, String message) {
+    public static void throwBizException(CodeEnum codeEnum, String message) {
         throwBizException(codeEnum.getCode(), message);
     }
 

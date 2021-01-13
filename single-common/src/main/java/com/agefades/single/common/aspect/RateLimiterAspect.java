@@ -2,7 +2,7 @@ package com.agefades.single.common.aspect;
 
 import cn.hutool.core.util.StrUtil;
 import com.agefades.single.common.annotation.RateLimiter;
-import com.agefades.single.common.enums.BizCodeEnum;
+import com.agefades.single.common.enums.CommonResultCodeEnum;
 import com.agefades.single.common.enums.RateLimiterTypeEnum;
 import com.agefades.single.common.util.AspectUtil;
 import com.agefades.single.common.util.Assert;
@@ -71,7 +71,7 @@ public class RateLimiterAspect {
             }
 
             // 执行限流方法，判断是否应该限流
-            Assert.isFalse(shouldLimited(key, rateLimiter.max(), rateLimiter.timeout(), rateLimiter.timeUnit()), BizCodeEnum.REDIS_LIMIT_ERROR);
+            Assert.isFalse(shouldLimited(key, rateLimiter.max(), rateLimiter.timeout(), rateLimiter.timeUnit()), CommonResultCodeEnum.REDIS_LIMIT_ERROR);
         }
 
         return point.proceed();

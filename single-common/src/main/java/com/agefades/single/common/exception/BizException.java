@@ -1,5 +1,6 @@
 package com.agefades.single.common.exception;
 
+import com.agefades.single.common.enums.CodeEnum;
 import lombok.Getter;
 
 /**
@@ -25,6 +26,12 @@ public class BizException extends RuntimeException {
         super(message);
         this.code = code;
         this.message = message;
+    }
+
+    public BizException(CodeEnum codeEnum) {
+        super(codeEnum.getMsg());
+        this.code = codeEnum.getCode();
+        this.message = codeEnum.getMsg();
     }
 
 }

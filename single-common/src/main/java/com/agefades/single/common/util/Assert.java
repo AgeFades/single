@@ -3,7 +3,8 @@ package com.agefades.single.common.util;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.agefades.single.common.enums.BizCodeEnum;
+import com.agefades.single.common.enums.CodeEnum;
+import com.agefades.single.common.enums.CommonResultCodeEnum;
 
 import java.util.Collection;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class Assert {
      * @param expression 布尔值 or 布尔值表达式
      * @param codeEnum 业务响应异常枚举
      */
-    public static void isTrue(boolean expression, BizCodeEnum codeEnum) {
+    public static void isTrue(boolean expression, CodeEnum codeEnum) {
         isTrue(expression, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -69,7 +70,7 @@ public class Assert {
      * @param expression 布尔值 or 布尔值表达式
      * @param codeEnum 业务响应异常枚举
      */
-    public static void isFalse(boolean expression, BizCodeEnum codeEnum) {
+    public static void isFalse(boolean expression, CodeEnum codeEnum) {
         isFalse(expression, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -104,7 +105,7 @@ public class Assert {
      * @param object 被检查的对象
      * @param codeEnum 业务响应异常枚举
      */
-    public static void isNull(Object object, BizCodeEnum codeEnum) {
+    public static void isNull(Object object, CodeEnum codeEnum) {
         isNull(object, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -144,7 +145,7 @@ public class Assert {
      * @param <T> 被检查对象泛型类型
      * @return 被检查后的对象
      */
-    public static <T> T notNull(T object, BizCodeEnum codeEnum) {
+    public static <T> T notNull(T object, CodeEnum codeEnum) {
         return notNull(object, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -184,7 +185,7 @@ public class Assert {
      * @param <T> 字符串类型
      * @return 非空字符串
      */
-    public static <T extends CharSequence> T notEmpty(T text, BizCodeEnum codeEnum) {
+    public static <T extends CharSequence> T notEmpty(T text, CodeEnum codeEnum) {
         return notEmpty(text, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -225,7 +226,7 @@ public class Assert {
      * @param <T> 字符串类型
      * @return 非空字符串
      */
-    public static <T extends CharSequence> T notBlank(T text, BizCodeEnum codeEnum) {
+    public static <T extends CharSequence> T notBlank(T text, CodeEnum codeEnum) {
         return notBlank(text, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -266,7 +267,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 被检查的子串
      */
-    public static String notContain(String textToSearch, String substring, BizCodeEnum codeEnum)  {
+    public static String notContain(String textToSearch, String substring, CodeEnum codeEnum)  {
         return notContain(textToSearch, substring, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -290,7 +291,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 被检查的数组
      */
-    public static Object[] notEmpty(Object[] array, BizCodeEnum codeEnum)  {
+    public static Object[] notEmpty(Object[] array, CodeEnum codeEnum)  {
         return notEmpty(array, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -318,7 +319,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 被检查的数组
      */
-    public static <T> T[] noNullElements(T[] array, BizCodeEnum codeEnum)  {
+    public static <T> T[] noNullElements(T[] array, CodeEnum codeEnum)  {
         return noNullElements(array, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -346,7 +347,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 非空集合
      */
-    public static <T> Collection<T> notEmpty(Collection<T> collection, BizCodeEnum codeEnum)  {
+    public static <T> Collection<T> notEmpty(Collection<T> collection, CodeEnum codeEnum)  {
         return notEmpty(collection, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -378,7 +379,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 被检查的Map
      */
-    public static <K, V> Map<K, V> notEmpty(Map<K, V> map, BizCodeEnum codeEnum)  {
+    public static <K, V> Map<K, V> notEmpty(Map<K, V> map, CodeEnum codeEnum)  {
        return notEmpty(map, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -393,7 +394,7 @@ public class Assert {
      * @return 被检查的对象
      */
     public static <T> T isInstanceOf(Class<?> type, T obj, String code, String msg) {
-        notNull(type, BizCodeEnum.ILLEGAL_ARGUMENT.getCode(), "Type to check against must not be null");
+        notNull(type, CommonResultCodeEnum.ILLEGAL_ARGUMENT.getCode(), "Type to check against must not be null");
         if (!type.isInstance(obj)) {
             ExceptionUtil.throwBizException(code, msg);
         }
@@ -409,7 +410,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 被检查对象
      */
-    public static <T> T isInstanceOf(Class<?> type, T obj, BizCodeEnum codeEnum)  {
+    public static <T> T isInstanceOf(Class<?> type, T obj, CodeEnum codeEnum)  {
         return isInstanceOf(type, obj, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -422,7 +423,7 @@ public class Assert {
      * @param msg 业务响应异常Msg
      */
     public static void isAssignable(Class<?> superType, Class<?> subType, String code, String msg)  {
-        notNull(superType, BizCodeEnum.ILLEGAL_ARGUMENT.getCode(), "Type to check against must not be null");
+        notNull(superType, CommonResultCodeEnum.ILLEGAL_ARGUMENT.getCode(), "Type to check against must not be null");
         if (subType == null || !superType.isAssignableFrom(subType)) {
             ExceptionUtil.throwBizException(code, msg);
         }
@@ -435,7 +436,7 @@ public class Assert {
      * @param subType 需要检查的子类
      * @param codeEnum 业务响应异常枚举
      */
-    public static void isAssignable(Class<?> superType, Class<?> subType, BizCodeEnum codeEnum)  {
+    public static void isAssignable(Class<?> superType, Class<?> subType, CodeEnum codeEnum)  {
        isAssignable(superType, subType, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -445,7 +446,7 @@ public class Assert {
      * @param expression boolean 表达式
      * @param codeEnum 业务响应异常枚举
      */
-    public static void state(boolean expression, BizCodeEnum codeEnum) throws IllegalStateException {
+    public static void state(boolean expression, CodeEnum codeEnum) throws IllegalStateException {
         state(expression, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -486,7 +487,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 检查后的下标
      */
-    public static int checkIndex(int index, int size, BizCodeEnum codeEnum) {
+    public static int checkIndex(int index, int size, CodeEnum codeEnum) {
         return checkIndex(index, size, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -516,7 +517,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 检查后的长度值
      */
-    public static int checkBetween(int value, int min, int max, BizCodeEnum codeEnum) {
+    public static int checkBetween(int value, int min, int max, CodeEnum codeEnum) {
         return checkBetween(value, min, max, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -546,7 +547,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 检查后的长度值
      */
-    public static long checkBetween(long value, long min, long max, BizCodeEnum codeEnum) {
+    public static long checkBetween(long value, long min, long max, CodeEnum codeEnum) {
         return checkBetween(value, min, max, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -576,7 +577,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 检查后的长度值
      */
-    public static double checkBetween(double value, double min, double max, BizCodeEnum codeEnum) {
+    public static double checkBetween(double value, double min, double max, CodeEnum codeEnum) {
         return checkBetween(value, min, max, codeEnum.getCode(), codeEnum.getMsg());
     }
 
@@ -591,9 +592,9 @@ public class Assert {
      * @return 检查后的长度值
      */
     public static Number checkBetween(Number value, Number min, Number max, String code, String msg) {
-        notNull(value, BizCodeEnum.ILLEGAL_ARGUMENT.getCode(), "value 不能为空");
-        notNull(min, BizCodeEnum.ILLEGAL_ARGUMENT.getCode(), "min 不能为空");
-        notNull(max, BizCodeEnum.ILLEGAL_ARGUMENT.getCode(), "max 不能为空");
+        notNull(value, CommonResultCodeEnum.ILLEGAL_ARGUMENT.getCode(), "value 不能为空");
+        notNull(min, CommonResultCodeEnum.ILLEGAL_ARGUMENT.getCode(), "min 不能为空");
+        notNull(max, CommonResultCodeEnum.ILLEGAL_ARGUMENT.getCode(), "max 不能为空");
         double valueDouble = value.doubleValue();
         double minDouble = min.doubleValue();
         double maxDouble = max.doubleValue();
@@ -612,7 +613,7 @@ public class Assert {
      * @param codeEnum 业务响应异常枚举
      * @return 检查后的长度值
      */
-    public static Number checkBetween(Number value, Number min, Number max, BizCodeEnum codeEnum) {
+    public static Number checkBetween(Number value, Number min, Number max, CodeEnum codeEnum) {
         return checkBetween(value, min, max, codeEnum.getCode(), codeEnum.getMsg());
     }
 

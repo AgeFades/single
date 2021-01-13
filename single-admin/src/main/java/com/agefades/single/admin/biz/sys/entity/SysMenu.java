@@ -30,7 +30,7 @@ public class SysMenu implements Serializable {
     /**
      * 父菜单ID
      */
-    private Long pid;
+    private String pid;
     /**
      * 显示权重
      */
@@ -47,10 +47,6 @@ public class SysMenu implements Serializable {
      * 权限标识
      */
     private String perms;
-    /**
-     * 资源请求类型 GET POST PUT DELETE
-     */
-    private String method;
     /**
      * 创建时间
      */
