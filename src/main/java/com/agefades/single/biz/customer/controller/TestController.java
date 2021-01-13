@@ -1,5 +1,6 @@
 package com.agefades.single.biz.customer.controller;
 
+import com.agefades.single.annotation.SysLog;
 import com.agefades.single.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class TestController {
 
+    @SysLog(desc = "操作日志测试 - 正常")
     @GetMapping
     @ApiOperation(value = "测试 - 正常")
     public Result<Void> testOk() {
         return Result.success();
     }
 
+    @SysLog(desc = "操作日志测试 - 异常")
     @PostMapping
     @ApiOperation(value = "测试 - 异常")
     public Result<Void> testError() {

@@ -18,4 +18,14 @@ public interface CommonConstant {
      */
     String PHONE_PATTEN = "1\\d{10}";
 
+    /**
+     * 成功描述
+     */
+    String SUCCESS = "SUCCESS";
+
+    /**
+     * 异常描述
+     */
+    String ERROR = "ERROR";
+
 }
