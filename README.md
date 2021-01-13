@@ -17,6 +17,7 @@
 ## 结束语
 
 - 此处不搞代码生成器，有需要的自行百度
+- 觉得其中代码对你有用，可以点个Star
 - [AgeFades 笔记库](https://github.com/AgeFades/AgeFades-Note)
 
 - 技术水群QQ号: 764340624
