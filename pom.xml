@@ -159,6 +159,13 @@
             <version>${mysql.version}</version>
         </dependency>
 
+        <!-- JDK11所需依赖 -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
