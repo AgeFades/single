@@ -18,7 +18,6 @@ import com.agefades.single.common.enums.BoolEnum;
 import com.agefades.single.common.util.Assert;
 import com.agefades.single.common.util.JwtUtil;
 import com.agefades.single.common.util.RedisUtil;
-import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -65,7 +65,7 @@ public class LoginDomain {
         // 2. 基本校验通过、处理缓存信息
         String userId = user.getId();
         String hashKey = RedisConstant.SYS_USER_INFO_PREFIX + userId;
-        Map<String, String> cacheMap = Maps.newHashMap();
+        Map<String, String> cacheMap = new HashMap<>();
 
         // 缓存 token
         String token = JwtUtil.createJwt(userId);

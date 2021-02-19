@@ -1,8 +1,8 @@
 package com.agefades.single.common.util;
 
 import cn.hutool.core.convert.Convert;
-import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +17,7 @@ public class ThreadLocalUtil {
      * 线程上下文 ThreadLocal
      * 以当前 线程 为 Key，Value 为 Map
      */
-    private static final ThreadLocal<Map<String, Object>> THREAD_LOCAL_MAP = ThreadLocal.withInitial(Maps::newHashMap);
+    private static final ThreadLocal<Map<String, Object>> THREAD_LOCAL_MAP = ThreadLocal.withInitial(HashMap::new);
 
     /**
      * 往当前线程上下文插入 键值对

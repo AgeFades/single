@@ -4,13 +4,13 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.google.common.collect.Maps;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,7 +54,7 @@ public class AspectUtil {
      * @return 参数列表Map JSONStr
      */
     private static Map<String, Object> getParamsMap(JoinPoint joinPoint, Object[] args) {
-        Map<String, Object> paramMap = Maps.newHashMap();
+        Map<String, Object> paramMap = new HashMap<>();
         Signature signature = joinPoint.getSignature();
         if (signature instanceof MethodSignature) {
             MethodSignature methodSignature = (MethodSignature) signature;

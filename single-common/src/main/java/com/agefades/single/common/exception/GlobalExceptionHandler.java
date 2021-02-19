@@ -4,7 +4,7 @@ import com.agefades.single.common.base.Result;
 import com.agefades.single.common.enums.CommonResultCodeEnum;
 import com.agefades.single.common.util.LogUtil;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.google.common.collect.Maps;
+import io.sentry.Sentry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -19,6 +19,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -74,6 +75,7 @@ public class GlobalExceptionHandler {
 
         String traceId = LogUtil.getTraceId();
         log.error("系统异常！traceId:{}", traceId, ex);
+        Sentry.captureException(ex);
         return Result.errorWithTraceId(CommonResultCodeEnum.SYSTEM_ERROR, traceId);
     }
 
@@ -81,7 +83,7 @@ public class GlobalExceptionHandler {
      * JSR-303 数据参数校验异常处理
      */
     private Result<Void> handleValidException(BindingResult bindingResult) {
-        Map<String, String> errorMap = Maps.newHashMap();
+        Map<String, String> errorMap = new HashMap<>();
         bindingResult.getFieldErrors()
                 .forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
         return Result.error(CommonResultCodeEnum.VALID_ERROR, errorMap.toString());
