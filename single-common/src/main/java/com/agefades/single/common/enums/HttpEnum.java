@@ -14,6 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum HttpEnum {
 
+    TENCENT_MAP("腾讯地图")
     ;
     private final String desc;
 
