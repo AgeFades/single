@@ -64,6 +64,24 @@
             </Policies>
         </RollingFile>
 
+        <RollingFile name="httpLog" immediateFlush="true" fileName="${sys:log.path}/http.log"
+                     filePattern="${sys:log.path}/$${date:yyyy-MM}/http-%d{yyyy-MM-dd}-%i.log.zip">
+            <Filters>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>${pattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <Sentry name="sentry" dsn="https://02817e82efe04b2c9a559d76bbd1e61e@sentry.botpy.com/19"
+                minimumBreadcrumbLevel="INFO" minimumEventLevel="INFO" />
+
     </appenders>
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
@@ -76,15 +94,21 @@
             <appender-ref ref="infoLog"/>
             <appender-ref ref="warnLog"/>
             <appender-ref ref="errorLog"/>
+            <appender-ref ref="sentry"/>
         </logger>
         <logger name="MonitorLog" level="debug" additivity="false">
             <appender-ref ref="monitorLog"/>
+        </logger>
+        <logger name="HttpLog" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="httpLog"/>
         </logger>
         <root level="all">
             <appender-ref ref="console"/>
             <appender-ref ref="infoLog"/>
             <appender-ref ref="warnLog"/>
             <appender-ref ref="errorLog"/>
+            <appender-ref ref="sentry"/>
         </root>
     </loggers>
 

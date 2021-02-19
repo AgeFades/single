@@ -58,3 +58,9 @@ swagger:
   title: AgeFades 单体后台API
   description: 当前环境:本地开发
   version: 1.0
+
+sentry:
+  dsn: https://02817e82efe04b2c9a559d76bbd1e61e@sentry.botpy.com/19
+  environment: dev
+  server-name: single-admin
+  exception-resolver-order: 2147483647
