@@ -1,6 +1,5 @@
 package com.agefades.single.common.config;
 
-import com.google.common.base.Predicates;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,13 +11,14 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Swagger 配置类
@@ -27,8 +27,7 @@ import java.util.List;
  * @date 2021/1/12 4:06 下午
  */
 @Configuration
-@EnableSwagger2
-public class Swagger2Config {
+public class Swagger3Config {
 
     @Value("${swagger.title:请设置配置}")
     private String title;
@@ -45,7 +44,7 @@ public class Swagger2Config {
                 useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
+                .paths(Predicate.not(PathSelectors.regex("/error.*")))
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
@@ -53,7 +52,7 @@ public class Swagger2Config {
                 ;
     }
 
-    private List<ApiKey> securitySchemes() {
+    private List<SecurityScheme> securitySchemes() {
         return Collections.singletonList(new ApiKey("Authorization", "Authorization", "header"));
     }
 
