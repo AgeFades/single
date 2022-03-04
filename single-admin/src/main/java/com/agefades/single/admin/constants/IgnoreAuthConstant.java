@@ -15,7 +15,7 @@ public interface IgnoreAuthConstant {
     /**
      * 忽略 { 认证 & 鉴权 } 请求路径集合
      */
-    List<String> IGNORE_PATTERN = Arrays.asList("/auth/login", "/test/ok");
+    List<String> IGNORE_PATTERN = Arrays.asList("/auth/login", "/test/**");
 
     /**
      * 忽略 { 鉴权 } 请求路径集合

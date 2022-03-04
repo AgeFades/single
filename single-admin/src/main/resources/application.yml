@@ -19,7 +19,7 @@ spring:
     url: jdbc:mysql://localhost:3306/single?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
 
   # Redis配置
   redis:
@@ -48,6 +48,8 @@ mybatis-plus:
       logic-delete-field: deleted
       logic-delete-value: 1
       logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 日志配置
 logging:
@@ -60,7 +62,8 @@ swagger:
   version: 1.0
 
 sentry:
-  dsn: https://02817e82efe04b2c9a559d76bbd1e61e@sentry.botpy.com/19
+  dsn: http://e8bfab3cdfed4b1c9b4abafbd029b74c@sentry.agefades.com/5
   environment: dev
   server-name: single-admin
   exception-resolver-order: 2147483647
+  debug: true

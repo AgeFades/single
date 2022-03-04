@@ -40,7 +40,7 @@ public class AspectUtil {
                     paramsBuilder.append(arg).append(" ");
                 }
             });
-            return paramsBuilder.toString() + "} ";
+            return paramsBuilder + "} ";
         } else {
             return JSONUtil.toJsonStr(paramsMap);
         }

@@ -169,6 +169,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // false
         System.out.println(matcher.match("/user/detail", "/user/detail/"));
         System.out.println(matcher.match("/user/**/do", "/user/do/xx"));
+        System.out.println(matcher.match("", "/test/fail"));
+        System.out.println(matcher.match("/user/*/detail", "/user/detail"));
 
         // true
         System.out.println(matcher.match("/user/**/detail", "/user/1/2/detail"));
@@ -176,7 +178,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         System.out.println(matcher.match("/user/detail/**", "/user/detail/1"));
         System.out.println(matcher.match("/user/**/do", "/user/xx/do"));
         System.out.println(matcher.match("/**/xx/do", "/user/xx/do"));
-        System.out.println(matcher.match("", "/test/fail"));
     }
 
 }

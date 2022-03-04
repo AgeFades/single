@@ -43,5 +43,4 @@ public class  SysUserController {
         return Result.success();
     }
 
-
 }

@@ -16,14 +16,16 @@ public enum BoolEnum {
     /**
      * Boolean.TRUE
      */
-    Y(1),
+    Y(1, "1"),
 
     /**
      * Boolean.FALSE
      */
-    N(0)
+    N(0, "0")
 
     ;
     private final int code;
+
+    private final String codeStr;
 
 }

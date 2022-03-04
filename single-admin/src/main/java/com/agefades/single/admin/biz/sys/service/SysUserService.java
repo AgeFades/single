@@ -26,6 +26,5 @@ public interface SysUserService extends IService<SysUser> {
      * 获取用户权限列表
      */
     List<ClientMenuDTO> getPermission(String userId);
-
 }
 
